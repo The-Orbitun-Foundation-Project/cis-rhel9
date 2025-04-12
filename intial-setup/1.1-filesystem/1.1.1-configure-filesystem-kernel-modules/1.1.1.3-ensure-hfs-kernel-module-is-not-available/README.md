@@ -21,13 +21,13 @@ find /lib/modules/$(uname -r)/kernel/fs -name "$mod_name" -type d 2>/dev/null
 ```bash
 mod_name="hfs"
 
-# Check if freevxfs module is loaded and unload it
+# Check if module is loaded and unload it
 lsmod | grep -q "$mod_name" && sudo modprobe -r $mod_name
 
-# Blacklist freevxfs to prevent loading
+# Blacklist module to prevent loading
 echo "blacklist $mod_name" | sudo tee /etc/modprobe.d/$mod_name.conf
 
-# Set cramfs to install as /bin/false (prevent loading)
+# Set module to install as /bin/false (prevent loading)
 echo "install $mod_name /bin/false" | sudo tee -a /etc/modprobe.d/$mod_name.conf
 
 # Verify if the module exists in kernel directories
